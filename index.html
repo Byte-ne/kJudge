@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kjudge - Competitive Programming CLI Local Judge</title>
+    <title>kjudge Documentation</title>
+    <!-- Use marked.js to render markdown client-side so Live Preview works perfectly! -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         body {
             font-family: Verdana, Geneva, sans-serif;
@@ -38,46 +40,47 @@
             border-right: 1px solid #ddd;
             min-height: 100vh;
             padding: 20px 40px;
+            position: relative;
         }
-        h1, h2, h3 {
+        .content h1, .content h2, .content h3 {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             color: #000;
         }
-        h1 { font-size: 20px; border-bottom: 2px solid #3b5998; padding-bottom: 5px; }
-        h2 { font-size: 16px; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 3px; }
-        h3 { font-size: 14px; margin-top: 20px; }
-        a { color: #0000ee; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        pre, code {
+        .content h1 { font-size: 20px; border-bottom: 2px solid #3b5998; padding-bottom: 5px; }
+        .content h2 { font-size: 16px; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 3px; }
+        .content h3 { font-size: 14px; margin-top: 20px; }
+        .content a { color: #0000ee; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content pre, .content code {
             font-family: Consolas, 'Courier New', monospace;
             background-color: #eaeaea;
             padding: 2px 4px;
             font-size: 12px;
             border-radius: 3px;
         }
-        pre {
+        .content pre {
             padding: 10px;
             display: block;
             border: 1px solid #ccc;
             overflow-x: auto;
         }
-        pre code {
+        .content pre code {
             background-color: transparent;
             padding: 0;
             border-radius: 0;
         }
-        table {
+        .content table {
             border-collapse: collapse;
             width: 100%;
             margin: 15px 0;
             font-size: 12px;
         }
-        th, td {
+        .content th, .content td {
             border: 1px solid #ccc;
             padding: 6px 10px;
             text-align: left;
         }
-        th { background-color: #e5e5e5; }
+        .content th { background-color: #e5e5e5; }
         .footer {
             margin-top: 40px;
             border-top: 1px solid #ccc;
@@ -86,120 +89,72 @@
             color: #828282;
             text-align: center;
         }
+        .loading {
+            color: #888;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
 
 <div id="container">
     <div id="nav">
-        <span>kjudge</span>
-        <span style="margin-left: 20px; font-weight: normal; font-size: 12px;">
-            <a href="#install">Installation</a> | 
-            <a href="#quickstart">Quick Start</a> | 
-            <a href="#commands">Commands Reference</a> | 
-            <a href="#config">Configuration</a>
+        <!-- Logo Text -->
+        <span style="display: flex; align-items: center; margin-right: 20px;">
+            <svg width="20" height="20" viewBox="0 0 100 100" style="margin-right: 8px;">
+                <!-- Concept: Balancing Braces - Technical scales of justice -->
+                <!-- Left Brace (Slate Blue) -->
+                <path d="M 40 20 Q 20 20 20 40 T 10 50 Q 20 50 20 60 T 40 80" fill="none" stroke="#2C3E50" stroke-width="12" stroke-linecap="round"/>
+                <!-- Right Brace (Neon Green) -->
+                <path d="M 60 20 Q 80 20 80 40 T 90 50 Q 80 50 80 60 T 60 80" fill="none" stroke="#00E676" stroke-width="12" stroke-linecap="round"/>
+                <!-- Central Fulcrum / Command Line prompt symbol -->
+                <path d="M 40 45 L 55 50 L 40 55" fill="none" stroke="#2C3E50" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+            <span style="font-size: 16px;">kjudge</span>
+        </span>
+        <span style="font-weight: normal; font-size: 12px;">
+            <a href="#home">Home</a> | 
+            <a href="#docs/architecture">Architecture</a> | 
+            <a href="#docs/advanced_workflows">Workflows</a> | 
+            <a href="#docs/config_mechanics">Config</a> |
+            <a href="#docs/distribution">Distribution</a>
         </span>
     </div>
 
-    <h1>kjudge - Competitive Programming Local Judge</h1>
-    <p>A powerful, command-line tool for competitive programming that manages test cases, fetches samples from Codeforces, compiles and runs solutions in C++/Java/Python, performs automatic stress testing, and shows clear diffs.</p>
-
-    <h2 id="install">Installation</h2>
-    <p>Clone the repository and install it locally using pip:</p>
-    <pre><code>cd kJudge
-pip install -e .</code></pre>
-    <p><i>Note for Windows: If <code>kjudge</code> isn't found after taking this action, you may need to add the Python Scripts directory to your PATH, or use <code>python -m kjudge</code>.</i></p>
-
-    <h2 id="quickstart">Quick Start Example</h2>
-    <p>The standard workflow for solving a Codeforces problem (e.g., 4A):</p>
-    <pre><code>mkdir 4A && cd 4A
-kjudge init                          # Set up problem directory
-kjudge fetch cf:4A                   # Download sample tests from CF
-# Write your solution in main.cpp...
-kjudge run main.cpp                  # Test against all samples
-kjudge diff sample_002               # See colored diff for a failing test
-kjudge case sample_002 main.cpp      # Re-run just that test</code></pre>
-
-    <h2 id="commands">Commands Reference</h2>
-    
-    <h3>Core Workflow</h3>
-    <table>
-        <tr><th>Command</th><th>Description</th></tr>
-        <tr><td><code>kjudge init</code></td><td>Initialize problem directory with <code>.kjudge/</code> config</td></tr>
-        <tr><td><code>kjudge fetch cf:1234A</code></td><td>Fetch sample test cases directly from Codeforces</td></tr>
-        <tr><td><code>kjudge add</code></td><td>Interactively add a custom test case</td></tr>
-        <tr><td><code>kjudge run main.cpp</code></td><td>Run solution on all tests, show verdicts (AC, WA, TLE, RTE)</td></tr>
-        <tr><td><code>kjudge case 2 main.cpp</code></td><td>Run a single test case by index or name</td></tr>
-        <tr><td><code>kjudge diff sample_002</code></td><td>Show a line-by-line diff comparing output vs expected</td></tr>
-    </table>
-
-    <h3>Test Generation & Regression</h3>
-    <table>
-        <tr><th>Command</th><th>Description</th></tr>
-        <tr><td><code>kjudge gen --cmd "python gen.py" --count 50</code></td><td>Generate random test inputs using an external script</td></tr>
-        <tr><td><code>kjudge answer main.cpp</code></td><td>Fill missing <code>.out</code> files sequentially with a correct solution</td></tr>
-        <tr><td><code>kjudge stress --brute brute.cpp --smart main.cpp --gen "python gen.py"</code></td><td>Stress testing: find counterexamples between two solutions automatically</td></tr>
-    </table>
-
-    <h3>Contest Mode</h3>
-    <table>
-        <tr><th>Command</th><th>Description</th></tr>
-        <tr><td><code>kjudge contest cf:1234 --problems A B C D E</code></td><td>Scaffold an entire contest structure locally</td></tr>
-        <tr><td><code>kjudge contest cf:1234</code></td><td>Auto-detect all problems directly from the contest page</td></tr>
-        <tr><td><code>kjudge contest cf:1234 --template</code></td><td>Scaffold and additionally generate starter source files for each</td></tr>
-    </table>
-
-    <h3>Housekeeping & Utils</h3>
-    <table>
-        <tr><th>Command</th><th>Description</th></tr>
-        <tr><td><code>kjudge list</code></td><td>Print all test cases with their metadata in a table format</td></tr>
-        <tr><td><code>kjudge remove sample_003</code></td><td>Delete a specific test case</td></tr>
-        <tr><td><code>kjudge clean --gen</code></td><td>Remove generated tests</td></tr>
-        <tr><td><code>kjudge export</code></td><td>Package all .in and .out tests into a zip file for sharing</td></tr>
-        <tr><td><code>kjudge watch main.cpp</code></td><td>Auto-rerun tests silently when your source file is saved</td></tr>
-    </table>
-
-    <h2 id="config">Configuration & Customization</h2>
-    
-    <h3>Global Config</h3>
-    <p>Set global preferences (like your preferred language or custom time limit metrics) which apply every time you run <code>kjudge init</code>:</p>
-    <pre><code>kjudge config --set language cpp
-kjudge config --set time_limit_ms 3000
-kjudge config --show</code></pre>
-
-    <h3>Custom Templates</h3>
-    <p>You can create snippet templates that apply automatically when initializing. Place your starter files in <code>~/.kjudge/templates/</code>:</p>
-    <ul>
-        <li><code>main.cpp</code> &mdash; C++ template</li>
-        <li><code>Main.java</code> &mdash; Java template</li>
-        <li><code>main.py</code> &mdash; Python template</li>
-    </ul>
-
-    <h3>Advanced Execution Parameters</h3>
-    <p>Override runtime options temporarily:</p>
-    <pre><code># Change limits globally for a single run
-kjudge run main.cpp --lang python --time 5000 --mem 512
-
-# Custom checker logic
-kjudge run main.cpp --checker "python checker.py"
-kjudge run main.cpp --checker float:1e-6
-
-# Interactive problems piping
-kjudge run main.cpp --interactive --checker interactor.py</code></pre>
-
-    <h2 id="deep_dives">Platform Architecture & Deep Dives</h2>
-    <p>For contributors and advanced users, the underlying mechanics of <code>kjudge</code> are extensively documented. These files discuss the engineering choices from sub-process pipe isolations to our polyglot target-compilation engine:</p>
-    <ul>
-        <li><a href="docs/architecture.md">Platform Architecture & Internals</a> - OS level daemon threads, process bounding, state architectures.</li>
-        <li><a href="docs/advanced_workflows.md">Advanced Verification Workflows</a> - Automated N-loop stress engines, custom AST-level checkers, and our internal polling watcher logic.</li>
-        <li><a href="docs/config_mechanics.md">Config Parsing & Mechanics</a> - JSON overlay priority hierarchy and dynamic target selection.</li>
-        <li><a href="docs/distribution.md">Distribution & Standalone Setup</a> - Replicating, PyPI PIP installations, and deploying explicit standalone `.exe` binaries using PyInstaller.</li>
-    </ul>
+    <!-- Markdown will be injected here -->
+    <div class="content" id="content">
+        <p class="loading">Loading documentation...</p>
+    </div>
 
     <div class="footer">
         kjudge &mdash; CLI Local Judge Application. Designed for minimalists and peak efficiency.
     </div>
 </div>
+
+<script>
+    // Simple SPA Router to fetch and render .md files without GitHub Pages/Jekyll
+    async function loadContent() {
+        let page = window.location.hash.substring(1);
+        if (!page) page = 'home';
+        
+        let path = page + '.md';
+        
+        try {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error("Not found");
+            const md = await res.text();
+            document.getElementById('content').innerHTML = marked.parse(md);
+        } catch (e) {
+            document.getElementById('content').innerHTML = `<h1>404 Not Found</h1><p>Could not load <code>${path}</code>.</p>`;
+        }
+    }
+
+    // Listen for hash changes (when user clicks nav links)
+    window.addEventListener('hashchange', loadContent);
+    
+    // Load initial content
+    loadContent();
+</script>
 
 </body>
 </html>

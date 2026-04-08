@@ -1,7 +1,4 @@
----
-layout: default
-title: "Advanced Verification Workflows"
----
+
 
 # Advanced Verification Workflows
 

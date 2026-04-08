@@ -1,7 +1,4 @@
----
-layout: default
-title: "Config Parsing and System Mechanics"
----
+
 
 # Config Parsing and System Mechanics
 

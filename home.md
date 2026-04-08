@@ -1,8 +1,3 @@
----
-layout: default
-title: "kjudge - Competitive Programming CLI Local Judge"
----
-
 # kjudge - Competitive Programming Local Judge
 
 A powerful, command-line tool for competitive programming that manages test cases, fetches samples from Codeforces, compiles and runs solutions in C++/Java/Python, performs automatic stress testing, and shows clear diffs.
@@ -56,13 +51,4 @@ kjudge case sample_002 main.cpp      # Re-run just that test
 | Command | Description |
 |---|---|
 | `kjudge contest cf:1234` | Scaffold an entire contest globally (Downloads all A B C problems) |
-
-## Platform Architecture & Deep Dives
-
-For contributors and advanced users, the underlying mechanics of `kjudge` are extensively documented. These files discuss the engineering choices from sub-process pipe isolations to our polyglot target-compilation engine:
-
-- [Platform Architecture & Internals](/docs/architecture.html) - OS level daemon threads, process bounding, state architectures.
-- [Advanced Verification Workflows](/docs/advanced_workflows.html) - Automated N-loop stress engines, custom AST-level checkers, and our internal polling watcher logic.
-- [Config Parsing & Mechanics](/docs/config_mechanics.html) - JSON overlay priority hierarchy and dynamic target selection.
-- [Distribution & Standalone Setup](/docs/distribution.html) - Replicating, PyPI PIP installations, and deploying explicit standalone `.exe` binaries using PyInstaller.
 

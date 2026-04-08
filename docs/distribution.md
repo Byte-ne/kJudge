@@ -1,7 +1,4 @@
----
-layout: default
-title: "Package Distribution & Standalone Builds"
----
+
 
 # Package Distribution & Standalone Builds
 

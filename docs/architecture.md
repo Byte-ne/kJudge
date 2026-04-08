@@ -1,7 +1,4 @@
----
-layout: default
-title: "Platform Architecture & Internals"
----
+
 
 # Platform Architecture & Internals
 
