@@ -1,17 +1,40 @@
-# kjudge - Competitive Programming Local Judge
+# kJudge ($kilo Judge$)
+## A Local CP Judge
+<img src="/true_logo.png" align = "center" width="200" height="200"> 
 
 A powerful, command-line tool for competitive programming that manages test cases, fetches samples from Codeforces, compiles and runs solutions in C++/Java/Python, performs automatic stress testing, and shows clear diffs.
 
 ## Installation
 
-Clone the repository and install it locally using pip:
+Goto [github releases](https://github.com/Byte-ne/kJudge/releases) and install the **kjudge.exe** excecutable given. 
+
+After running, a terminal will open as follows:
 
 ```bash
-cd kJudge
-pip install -e .
+⚡ Welcome to the kjudge CLI Setup ⚡                         
+                                                            
+It looks like you opened the standalone executable directly.               
+Would you like to permanently install kjudge to your system?
+This will copy it to C:\Users\their_name\.kjudge\bin and add it to your PATH.
+Install kjudge? (Y/n):
 ```
 
-*Note for Windows: If `kjudge` isn't found after taking this action, you may need to add the Python Scripts directory to your PATH, or use `python -m kjudge`.*
+*What does Y do?* $-$
+- amends PATH for global usage of kJudge
+- copies iself into a permanent hidden folder (immutable), $ie.$ **~/.kjudge**
+
+After this, all commands of kjudge will become avialable to the user, beginning with prefix **kjudge**.
+
+*Note for Windows: If `kjudge` isn't found after taking this action, you may need to refresh your terminal as windows updates PATH on new terminals*
+
+## Un-Installation
+
+The un-installation process for kJudge is quite straightforward, just run 
+
+```bash
+kjudge self-uninstall #deletes all files associated with kJudge
+# this also deletes all the templates made with kJudge, kindly gather backups
+```
 
 ## Quick Start Example
 
@@ -50,5 +73,126 @@ kjudge case sample_002 main.cpp      # Re-run just that test
 
 | Command | Description |
 |---|---|
-| `kjudge contest cf:1234` | Scaffold an entire contest globally (Downloads all A B C problems) |
+| `kjudge contest cf:1234 --problems A B C D E` | Scaffold entire contest |
+| `kjudge contest cf:1234` | Auto-detect problems from contest page |
+| `kjudge contest cf:1234 --template` | Also generate starter source files |
 
+### Test Management
+
+| Command | Description |
+|---|---|
+| `kjudge list` | Show all test cases in a table |
+| `kjudge remove sample_003` | Delete a specific test case |
+| `kjudge clean --gen` | Remove generated tests |
+| `kjudge clean --all` | Remove everything |
+| `kjudge export` | Package tests into a zip file |
+
+### Productivity
+
+| Command | Description |
+|---|---|
+| `kjudge watch main.cpp` | Auto-rerun tests when file changes |
+| `kjudge config --show` | View global configuration |
+| `kjudge config --set language cpp` | Set global defaults |
+
+### Advanced Options
+
+```bash
+# Custom checker for multi-answer problems
+kjudge run main.cpp --checker "python checker.py"
+kjudge run main.cpp --checker token          # Token-based comparison
+kjudge run main.cpp --checker float:1e-6     # Float comparison
+
+# Interactive problems
+kjudge run main.cpp --interactive --checker interactor.py
+
+# Override settings
+kjudge run main.cpp --lang python --time 5000 --mem 512
+kjudge run main.cpp --quiet                  # Summary only
+kjudge run main.cpp --show-input --show-output
+```
+
+## Example Workflow
+
+### Standard Problem
+
+```bash
+mkdir 1234A && cd 1234A
+kjudge init                                    # → .kjudge/ created
+kjudge fetch cf:1234A                          # → sample_001, sample_002
+# edit main.cpp
+kjudge run main.cpp                            # → AC/WA/TLE/RTE per test
+kjudge diff sample_002                         # → see what went wrong
+# fix bug
+kjudge case sample_002 main.cpp                # → re-test single case
+```
+
+### Stress Testing
+
+```bash
+# After your solution passes samples:
+kjudge gen --cmd "python gen_1234A.py" --count 50
+kjudge answer main.cpp                         # Fill outputs with correct solution
+kjudge run main.cpp                            # Regression test
+
+# Or use stress directly:
+kjudge stress --brute brute.cpp --smart main.cpp --gen "python gen.py" --max 500
+```
+
+### Full Contest
+
+```bash
+kjudge contest cf:2050 --problems A B C D E F --template --lang cpp
+cd A
+# solve...
+kjudge run main.cpp
+cd ../B
+# ...
+```
+
+## Configuration
+
+### Local Config (`.kjudge/config.json`)
+
+```json
+{
+  "language": "cpp",
+  "main_file": "main.cpp",
+  "build": "g++ -std=c++17 -O2 -o main main.cpp",
+  "run": "main.exe",
+  "time_limit_ms": 2000,
+  "memory_limit_mb": 256
+}
+```
+
+### Global Config (`~/.kjudge/config.json`)
+
+Set defaults that apply to all problems:
+
+```bash
+kjudge config --set language cpp
+kjudge config --set time_limit_ms 3000
+kjudge config --show
+```
+
+### Custom Templates (`~/.kjudge/templates/`)
+
+Place your starter files in `~/.kjudge/templates/`:
+- `main.cpp` — C++ template
+- `Main.java` — Java template
+- `main.py` — Python template
+
+These are used by `kjudge init --template` and `kjudge contest --template`.
+
+## Verdict Colors
+
+| Verdict | Meaning | Color |
+|---|---|---|
+| **AC** | Accepted | ![text](https://img.shields.io/badge/AC-green) |
+| **WA** | Wrong Answer | ![text](https://img.shields.io/badge/WA-red) |
+| **TLE** | Time Limit Exceeded | ![text](https://img.shields.io/badge/TLE-yellow) |
+| **RTE** | Runtime Error | ![text](https://img.shields.io/badge/RTE-purple) |
+
+## License
+
+[MIT](LICENSE.md)
