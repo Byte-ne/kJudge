@@ -187,6 +187,15 @@ kjudge run main.cpp --checker float:1e-6
 # Interactive problems piping
 kjudge run main.cpp --interactive --checker interactor.py</code></pre>
 
+    <h2 id="deep_dives">Platform Architecture & Deep Dives</h2>
+    <p>For contributors and advanced users, the underlying mechanics of <code>kjudge</code> are extensively documented. These files discuss the engineering choices from sub-process pipe isolations to our polyglot target-compilation engine:</p>
+    <ul>
+        <li><a href="docs/architecture.md">Platform Architecture & Internals</a> - OS level daemon threads, process bounding, state architectures.</li>
+        <li><a href="docs/advanced_workflows.md">Advanced Verification Workflows</a> - Automated N-loop stress engines, custom AST-level checkers, and our internal polling watcher logic.</li>
+        <li><a href="docs/config_mechanics.md">Config Parsing & Mechanics</a> - JSON overlay priority hierarchy and dynamic target selection.</li>
+        <li><a href="docs/distribution.md">Distribution & Standalone Setup</a> - Replicating, PyPI PIP installations, and deploying explicit standalone `.exe` binaries using PyInstaller.</li>
+    </ul>
+
     <div class="footer">
         kjudge &mdash; CLI Local Judge Application. Designed for minimalists and peak efficiency.
     </div>

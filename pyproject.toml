@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "kjudge"
 version = "1.0.0"
-description = "Competitive programming local judge — manage tests, fetch from Codeforces, run & diff solutions."
+description = "Competitive programming local judge manage tests, fetch from Codeforces, run & diff solutions."
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
