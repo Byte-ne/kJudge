@@ -78,12 +78,13 @@ def fetch_samples(contest_id: str, problem_index: str) -> list[tuple[str, str]]:
 
     console.print(f"[dim]Fetching: {url}[/]")
 
+    import cloudscraper
+    scraper = cloudscraper.create_scraper()
+
     try:
-        resp = requests.get(url, timeout=15, headers={
-            "User-Agent": "kjudge/1.0 (competitive-programming-judge)",
-        })
+        resp = scraper.get(url, timeout=15)
         resp.raise_for_status()
-    except requests.RequestException as e:
+    except Exception as e:
         print_error(f"Failed to fetch problem page: {e}")
         sys.exit(1)
 
@@ -181,12 +182,13 @@ def fetch_contest_problems(contest_id: str) -> list[str]:
     """
     url = f"https://codeforces.com/contest/{contest_id}"
 
+    import cloudscraper
+    scraper = cloudscraper.create_scraper()
+
     try:
-        resp = requests.get(url, timeout=15, headers={
-            "User-Agent": "kjudge/1.0 (competitive-programming-judge)",
-        })
+        resp = scraper.get(url, timeout=15)
         resp.raise_for_status()
-    except requests.RequestException as e:
+    except Exception as e:
         print_error(f"Failed to fetch contest page: {e}")
         return []
 
