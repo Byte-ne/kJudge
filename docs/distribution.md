@@ -9,7 +9,7 @@ Extensive details on how to deploy and retrieve `kjudge` instances bypassing tra
 A user does not need to execute `git clone`. Because the module is built natively against `setuptools` with a `pyproject.toml` definition, it can be fetched explicitly across external HTTPS nodes using pip executable.
 
 ```bash
-pip install git+https://github.com/Username/kJudge.git
+pip install git+https://github.com/Byte-ne/kJudge.git
 ```
 This runs the internal `setuptools` build-chain, installs it securely into the OS `site-packages` directory, and registers the `kjudge` binary to the system PATH.
 
