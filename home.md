@@ -1,6 +1,6 @@
 # kJudge ($kilo Judge$)
 ## A Local CP Judge
-<img src="true_logo.png" align = "center" width="200" height="200"> 
+<img src="/true_logo.png" align = "center" width="200" height="200"> 
 
 A powerful, command-line tool for competitive programming that manages test cases, fetches samples from Codeforces, compiles and runs solutions in C++/Java/Python, performs automatic stress testing, and shows clear diffs.
 

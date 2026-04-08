@@ -1,73 +1,48 @@
-# kJudge ($kilo Judge$)
-## A Local CP Judge
-<img src="true_logo.png" align = "center" width="200" height="200"> 
+# kjudge — Competitive Programming Local Judge
 
-A powerful, command-line tool for competitive programming that manages test cases, fetches samples from Codeforces, compiles and runs solutions in C++/Java/Python, performs automatic stress testing, and shows clear diffs.
+A powerful CLI tool for competitive programming that manages test cases, fetches samples from Codeforces, compiles and runs solutions in C++/Java/Python, performs stress testing, and shows clear colored diffs.
 
 ## Installation
 
-Goto [github releases](https://github.com/Byte-ne/kJudge/releases) and install the **kjudge.exe** excecutable given. 
-
-After running, a terminal will open as follows:
-
 ```bash
-⚡ Welcome to the kjudge CLI Setup ⚡                         
-                                                            
-It looks like you opened the standalone executable directly.               
-Would you like to permanently install kjudge to your system?
-This will copy it to C:\Users\their_name\.kjudge\bin and add it to your PATH.
-Install kjudge? (Y/n):
+cd kJudge
+pip install -e .
 ```
 
-*What does Y do?* $-$
-- amends PATH for global usage of kJudge
-- copies iself into a permanent hidden folder (immutable), $ie.$ **~/.kjudge**
+> **Windows note:** If `kjudge` isn't found after install, you may need to add the Python Scripts directory to your PATH, or use `python -m kjudge` instead.
 
-After this, all commands of kjudge will become avialable to the user, beginning with prefix **kjudge**.
-
-*Note for Windows: If `kjudge` isn't found after taking this action, you may need to refresh your terminal as windows updates PATH on new terminals*
-
-## Un-Installation
-
-The un-installation process for kJudge is quite straightforward, just run 
+## Quick Start
 
 ```bash
-kjudge self-uninstall #deletes all files associated with kJudge
-# this also deletes all the templates made with kJudge, kindly gather backups
-```
-
-## Quick Start Example
-
-The standard workflow for solving a Codeforces problem (e.g., 4A):
-
-```bash
-mkdir 4A && cd 4A
+mkdir 1234A && cd 1234A
 kjudge init                          # Set up problem directory
-kjudge fetch cf:4A                   # Download sample tests from CF
-# Write your solution in main.cpp...
+kjudge fetch cf:1234A                # Download sample tests from CF
+# Write your solution in main.cpp
 kjudge run main.cpp                  # Test against all samples
 kjudge diff sample_002               # See colored diff for a failing test
 kjudge case sample_002 main.cpp      # Re-run just that test
 ```
 
-## Commands Reference
+## Commands
+
+### Core Workflow
 
 | Command | Description |
 |---|---|
 | `kjudge init` | Initialize problem directory with `.kjudge/` config |
-| `kjudge fetch cf:1234A` | Fetch sample test cases directly from Codeforces |
+| `kjudge fetch cf:1234A` | Fetch sample tests from Codeforces |
 | `kjudge add` | Interactively add a custom test case |
-| `kjudge run main.cpp` | Run solution on all tests, show verdicts (AC, WA, TLE, RTE) |
-| `kjudge case 2 main.cpp` | Run a single test case by index or name |
-| `kjudge diff sample_002` | Show a line-by-line diff comparing output vs expected |
+| `kjudge run main.cpp` | Run solution on all tests, show verdicts |
+| `kjudge case 2 main.cpp` | Run a single test case |
+| `kjudge diff sample_002` | Show colored diff between expected and actual |
 
 ### Test Generation & Regression
 
 | Command | Description |
 |---|---|
-| `kjudge gen --cmd "python ..."` | Generate random test inputs using an external script |
-| `kjudge answer main.cpp` | Fill missing `.out` files with a correct solution |
-| `kjudge stress --brute ...` | Stress testing: find counterexamples automatically |
+| `kjudge gen --cmd "python gen.py" --count 50` | Generate random test inputs |
+| `kjudge answer main.cpp` | Fill missing `.out` files with correct solution |
+| `kjudge stress --brute brute.cpp --smart main.cpp --gen "python gen.py"` | Find counterexamples |
 
 ### Contest Mode
 
@@ -188,11 +163,11 @@ These are used by `kjudge init --template` and `kjudge contest --template`.
 
 | Verdict | Meaning | Color |
 |---|---|---|
-| **AC** | Accepted | ![text](https://img.shields.io/badge/AC-green) |
-| **WA** | Wrong Answer | ![text](https://img.shields.io/badge/WA-red) |
-| **TLE** | Time Limit Exceeded | ![text](https://img.shields.io/badge/TLE-yellow) |
-| **RTE** | Runtime Error | ![text](https://img.shields.io/badge/RTE-purple) |
+| **AC** | Accepted | 🟢 Green |
+| **WA** | Wrong Answer | 🔴 Red |
+| **TLE** | Time Limit Exceeded | 🟡 Yellow |
+| **RTE** | Runtime Error | 🟣 Magenta |
 
 ## License
 
-[MIT](LICENSE.md)
+MIT
