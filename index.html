@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kjudge Documentation</title>
+    <!-- Use marked.js to render markdown client-side so Live Preview works perfectly! -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: Verdana, Geneva, sans-serif;
+            font-size: 13px;
+            color: #222;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+        #nav {
+            background-color: #3b5998;
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        #nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        #nav a:hover {
+            text-decoration: underline;
+        }
+        #container {
+            background-color: #f6f6ef;
+            max-width: 900px;
+            margin: 0 auto;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            min-height: 100vh;
+            padding: 20px 40px;
+            position: relative;
+        }
+        .content h1, .content h2, .content h3 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #000;
+        }
+        .content h1 { font-size: 20px; border-bottom: 2px solid #3b5998; padding-bottom: 5px; }
+        .content h2 { font-size: 16px; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 3px; }
+        .content h3 { font-size: 14px; margin-top: 20px; }
+        .content a { color: #0000ee; text-decoration: none; }
+        .content a:hover { text-decoration: underline; }
+        .content pre, .content code {
+            font-family: Consolas, 'Courier New', monospace;
+            background-color: #eaeaea;
+            padding: 2px 4px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+        .content pre {
+            padding: 10px;
+            display: block;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        .content pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+        }
+        .content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+            font-size: 12px;
+        }
+        .content th, .content td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            text-align: left;
+        }
+        .content th { background-color: #e5e5e5; }
+        .footer {
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            font-size: 11px;
+            color: #828282;
+            text-align: center;
+        }
+        .loading {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="nav">
+        <!-- Logo Text -->
+        <span style="display: flex; align-items: center; margin-right: 20px;">
+            <img src="true_logo.png" width="28" height="28" style="margin-right: 10px;" alt="kjudge logo">
+            <span style="font-size: 16px;">kjudge</span>
+        </span>
+        <span style="font-weight: normal; font-size: 12px;">
+            <a href="#home">Home</a> | 
+            <a href="#docs/architecture">Architecture</a> | 
+            <a href="#docs/advanced_workflows">Workflows</a> | 
+            <a href="#docs/config_mechanics">Config</a> |
+            <a href="#docs/distribution">Distribution</a>
+        </span>
+    </div>
+
+    <!-- Markdown will be injected here -->
+    <div class="content" id="content">
+        <p class="loading">Loading documentation...</p>
+    </div>
+
+    <div class="footer">
+        kjudge &mdash; CLI Local Judge Application. Designed for minimalists and peak efficiency.
+    </div>
+</div>
+
+<script>
+    // Simple SPA Router to fetch and render .md files without GitHub Pages/Jekyll
+    async function loadContent() {
+        let page = window.location.hash.substring(1);
+        if (!page) page = 'home';
+        
+        let path = page + '.md';
+        
+        try {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error("Not found");
+            const md = await res.text();
+            document.getElementById('content').innerHTML = marked.parse(md);
+        } catch (e) {
+            document.getElementById('content').innerHTML = `<h1>404 Not Found</h1><p>Could not load <code>${path}</code>.</p>`;
+        }
+    }
+
+    // Listen for hash changes (when user clicks nav links)
+    window.addEventListener('hashchange', loadContent);
+    
+    // Load initial content
+    loadContent();
+</script>
+
+</body>
+</html>
