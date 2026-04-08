@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Advanced Verification Workflows"
+---
+
 # Advanced Verification Workflows
 
 Documentation on utilizing automated verification methodologies.

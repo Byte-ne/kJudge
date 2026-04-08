@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Platform Architecture & Internals"
+---
+
 # Platform Architecture & Internals
 
 Deep dive into the underlying engineering choices, execution isolation, and process management of `kjudge`.

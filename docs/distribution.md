@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Package Distribution & Standalone Builds"
+---
+
 # Package Distribution & Standalone Builds
 
 Extensive details on how to deploy and retrieve `kjudge` instances bypassing traditional version control structures.

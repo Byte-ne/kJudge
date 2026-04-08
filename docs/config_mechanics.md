@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Config Parsing and System Mechanics"
+---
+
 # Config Parsing and System Mechanics
 
 How kjudge resolves complex user preferences overriding local settings safely.
