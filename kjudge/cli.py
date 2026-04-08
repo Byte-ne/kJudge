@@ -266,6 +266,18 @@ def build_parser() -> argparse.ArgumentParser:
     p_config.add_argument("--show", action="store_true",
                           help="Display current global config.")
 
+    # ── 17. self-install ─────────────────────────────────────────────────
+    sub.add_parser(
+        "self-install",
+        help="Install standalone executable to Windows PATH.",
+    )
+
+    # ── 18. self-uninstall ───────────────────────────────────────────────
+    sub.add_parser(
+        "self-uninstall",
+        help="Deep uninstall of kjudge (removes PATH and ~/.kjudge).",
+    )
+
     return parser
 
 
@@ -337,6 +349,13 @@ def cmd_config(args):
     from kjudge.config import handle_config
     handle_config(args)
 
+def cmd_self_install(args):
+    from kjudge.setup_wizard import handle_self_install
+    handle_self_install(args)
+
+def cmd_self_uninstall(args):
+    from kjudge.setup_wizard import handle_self_uninstall
+    handle_self_uninstall(args)
 
 # Map command names → handlers
 HANDLERS = {
@@ -356,6 +375,8 @@ HANDLERS = {
     "remove": cmd_remove,
     "export": cmd_export,
     "config": cmd_config,
+    "self-install": cmd_self_install,
+    "self-uninstall": cmd_self_uninstall,
 }
 
 
