@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# kjudge local data
+.kjudge/
+test_*/
+test_1A/
+
+# Ignore prompt and custom info
+PROMPT.md
+.env
+my_info.txt
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# OS generated files
+.DS_Store
+Thumbs.db
