@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kjudge - Competitive Programming CLI Local Judge</title>
+    <style>
+        body {
+            font-family: Verdana, Geneva, sans-serif;
+            font-size: 13px;
+            color: #222;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+        #nav {
+            background-color: #3b5998;
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        #nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        #nav a:hover {
+            text-decoration: underline;
+        }
+        #container {
+            background-color: #f6f6ef;
+            max-width: 900px;
+            margin: 0 auto;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            min-height: 100vh;
+            padding: 20px 40px;
+        }
+        h1, h2, h3 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #000;
+        }
+        h1 { font-size: 20px; border-bottom: 2px solid #3b5998; padding-bottom: 5px; }
+        h2 { font-size: 16px; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 3px; }
+        h3 { font-size: 14px; margin-top: 20px; }
+        a { color: #0000ee; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        pre, code {
+            font-family: Consolas, 'Courier New', monospace;
+            background-color: #eaeaea;
+            padding: 2px 4px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+        pre {
+            padding: 10px;
+            display: block;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+            font-size: 12px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            text-align: left;
+        }
+        th { background-color: #e5e5e5; }
+        .footer {
+            margin-top: 40px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            font-size: 11px;
+            color: #828282;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="nav">
+        <span>kjudge</span>
+        <span style="margin-left: 20px; font-weight: normal; font-size: 12px;">
+            <a href="#install">Installation</a> | 
+            <a href="#quickstart">Quick Start</a> | 
+            <a href="#commands">Commands Reference</a> | 
+            <a href="#config">Configuration</a>
+        </span>
+    </div>
+
+    <h1>kjudge - Competitive Programming Local Judge</h1>
+    <p>A powerful, command-line tool for competitive programming that manages test cases, fetches samples from Codeforces, compiles and runs solutions in C++/Java/Python, performs automatic stress testing, and shows clear diffs.</p>
+
+    <h2 id="install">Installation</h2>
+    <p>Clone the repository and install it locally using pip:</p>
+    <pre><code>cd kJudge
+pip install -e .</code></pre>
+    <p><i>Note for Windows: If <code>kjudge</code> isn't found after taking this action, you may need to add the Python Scripts directory to your PATH, or use <code>python -m kjudge</code>.</i></p>
+
+    <h2 id="quickstart">Quick Start Example</h2>
+    <p>The standard workflow for solving a Codeforces problem (e.g., 4A):</p>
+    <pre><code>mkdir 4A && cd 4A
+kjudge init                          # Set up problem directory
+kjudge fetch cf:4A                   # Download sample tests from CF
+# Write your solution in main.cpp...
+kjudge run main.cpp                  # Test against all samples
+kjudge diff sample_002               # See colored diff for a failing test
+kjudge case sample_002 main.cpp      # Re-run just that test</code></pre>
+
+    <h2 id="commands">Commands Reference</h2>
+    
+    <h3>Core Workflow</h3>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code>kjudge init</code></td><td>Initialize problem directory with <code>.kjudge/</code> config</td></tr>
+        <tr><td><code>kjudge fetch cf:1234A</code></td><td>Fetch sample test cases directly from Codeforces</td></tr>
+        <tr><td><code>kjudge add</code></td><td>Interactively add a custom test case</td></tr>
+        <tr><td><code>kjudge run main.cpp</code></td><td>Run solution on all tests, show verdicts (AC, WA, TLE, RTE)</td></tr>
+        <tr><td><code>kjudge case 2 main.cpp</code></td><td>Run a single test case by index or name</td></tr>
+        <tr><td><code>kjudge diff sample_002</code></td><td>Show a line-by-line diff comparing output vs expected</td></tr>
+    </table>
+
+    <h3>Test Generation & Regression</h3>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code>kjudge gen --cmd "python gen.py" --count 50</code></td><td>Generate random test inputs using an external script</td></tr>
+        <tr><td><code>kjudge answer main.cpp</code></td><td>Fill missing <code>.out</code> files sequentially with a correct solution</td></tr>
+        <tr><td><code>kjudge stress --brute brute.cpp --smart main.cpp --gen "python gen.py"</code></td><td>Stress testing: find counterexamples between two solutions automatically</td></tr>
+    </table>
+
+    <h3>Contest Mode</h3>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code>kjudge contest cf:1234 --problems A B C D E</code></td><td>Scaffold an entire contest structure locally</td></tr>
+        <tr><td><code>kjudge contest cf:1234</code></td><td>Auto-detect all problems directly from the contest page</td></tr>
+        <tr><td><code>kjudge contest cf:1234 --template</code></td><td>Scaffold and additionally generate starter source files for each</td></tr>
+    </table>
+
+    <h3>Housekeeping & Utils</h3>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code>kjudge list</code></td><td>Print all test cases with their metadata in a table format</td></tr>
+        <tr><td><code>kjudge remove sample_003</code></td><td>Delete a specific test case</td></tr>
+        <tr><td><code>kjudge clean --gen</code></td><td>Remove generated tests</td></tr>
+        <tr><td><code>kjudge export</code></td><td>Package all .in and .out tests into a zip file for sharing</td></tr>
+        <tr><td><code>kjudge watch main.cpp</code></td><td>Auto-rerun tests silently when your source file is saved</td></tr>
+    </table>
+
+    <h2 id="config">Configuration & Customization</h2>
+    
+    <h3>Global Config</h3>
+    <p>Set global preferences (like your preferred language or custom time limit metrics) which apply every time you run <code>kjudge init</code>:</p>
+    <pre><code>kjudge config --set language cpp
+kjudge config --set time_limit_ms 3000
+kjudge config --show</code></pre>
+
+    <h3>Custom Templates</h3>
+    <p>You can create snippet templates that apply automatically when initializing. Place your starter files in <code>~/.kjudge/templates/</code>:</p>
+    <ul>
+        <li><code>main.cpp</code> &mdash; C++ template</li>
+        <li><code>Main.java</code> &mdash; Java template</li>
+        <li><code>main.py</code> &mdash; Python template</li>
+    </ul>
+
+    <h3>Advanced Execution Parameters</h3>
+    <p>Override runtime options temporarily:</p>
+    <pre><code># Change limits globally for a single run
+kjudge run main.cpp --lang python --time 5000 --mem 512
+
+# Custom checker logic
+kjudge run main.cpp --checker "python checker.py"
+kjudge run main.cpp --checker float:1e-6
+
+# Interactive problems piping
+kjudge run main.cpp --interactive --checker interactor.py</code></pre>
+
+    <div class="footer">
+        kjudge &mdash; CLI Local Judge Application. Designed for minimalists and peak efficiency.
+    </div>
+</div>
+
+</body>
+</html>
