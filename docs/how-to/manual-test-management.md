@@ -40,5 +40,5 @@ kjudge export my_tests.zip
 ---
 
 **See Also:**
-- [CLI Reference](docs/reference/cli.md)
-- [Explanation: Isolation Model](docs/explanation/architecture.md)
+- [CLI Reference](../reference/cli.md)
+- [Explanation: Isolation Model](../explanation/architecture.md)

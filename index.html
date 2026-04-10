@@ -200,6 +200,43 @@
 </div>
 
 <script>
+    // Configure marked to handle internal links correctly
+    const renderer = new marked.Renderer();
+    const originalLink = renderer.link.bind(renderer);
+
+    renderer.link = ({ href, title, text }) => {
+        // If it's an internal link (e.g., ends in .md or doesn't have a protocol)
+        if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('//')) {
+            let currentPage = window.location.hash.substring(1) || 'home';
+            let currentDir = currentPage.split('/').slice(0, -1).join('/');
+            
+            // Handle relative paths (e.g., ../reference/cli.md)
+            let newHref = href;
+            if (!href.startsWith('/')) {
+                // If it's relative, join it with the current directory
+                let parts = [...currentDir.split('/'), ...href.split('/')].filter(p => p && p !== '.');
+                let resolvedParts = [];
+                for (let part of parts) {
+                    if (part === '..') resolvedParts.pop();
+                    else resolvedParts.push(part);
+                }
+                newHref = resolvedParts.join('/');
+            } else {
+                newHref = href.substring(1); // Strip leading slash
+            }
+
+            // Strip .md extension if present
+            if (newHref.endsWith('.md')) {
+                newHref = newHref.slice(0, -3);
+            }
+            
+            return `<a href="#${newHref}" title="${title || ''}">${text}</a>`;
+        }
+        return originalLink({ href, title, text });
+    };
+
+    marked.use({ renderer });
+
     // Search function
     function searchNav() {
         let input = document.getElementById('search-box').value.toLowerCase();
@@ -240,6 +277,9 @@
         let page = window.location.hash.substring(1);
         if (!page) page = 'home';
         
+        // Remove .md if user manually typed it in the URL
+        if (page.endsWith('.md')) page = page.slice(0, -3);
+        
         let path = page + '.md';
         
         try {
@@ -250,7 +290,8 @@
             // Scroll to top
             window.scrollTo(0, 0);
         } catch (e) {
-            document.getElementById('content').innerHTML = `<h1>404 Not Found</h1><p>Could not load <code>${path}</code>.</p>`;
+            console.error(e);
+            document.getElementById('content').innerHTML = `<h1>404 Not Found</h1><p>Could not load <code>${path}</code>.</p><p><a href="#home">Back to Home</a></p>`;
         }
     }
 

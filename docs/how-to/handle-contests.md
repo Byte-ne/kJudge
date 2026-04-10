@@ -39,5 +39,5 @@ kjudge self-install
 ---
 
 **See Also:**
-- [Manual Test Management](docs/how-to/manual-test-management.md)
-- [CLI Reference](docs/reference/cli.md)
+- [Manual Test Management](manual-test-management.md)
+- [CLI Reference](../reference/cli.md)
