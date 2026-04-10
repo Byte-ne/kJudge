@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  (function () {
+    try {
+      const storedTheme = localStorage.getItem('theme') || 'auto';
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const effectiveTheme = storedTheme === 'auto'
+          ? (prefersDark ? 'dark' : 'light')
+          : storedTheme;
+      document.documentElement.setAttribute('data-bs-theme', effectiveTheme);
+      document.documentElement.style.setProperty('color-scheme', effectiveTheme);
+    } catch (e) {
+    }
+  })();
+</script>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-374JLX1715"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-374JLX1715', {
+    
+  });
+</script>
+
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9098591903020457" crossorigin="anonymous"></script>
+
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="keywords" content="Online Judge, vjudge, OJ, Virtual Judge, ICPC, OnlineJudge"/>
+<meta name="robots" content="index, follow"/>
+
+    <title>Watermelon - CodeForces 4A - Virtual Judge</title>
+
+    <meta property="og:url" content="https://vjudge.net/problem/CodeForces-4A"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Watermelon - Virtual Judge"/>
+    <meta property="og:description"
+          content="Contest [Watermelon] in Virtual Judge"/>
+<script defer src="/static/bundle/5ca5384fb31fb64bf472.js"></script><script defer src="/static/bundle/d0c94275e6a0180c963d.js"></script><script defer src="/static/bundle/64ac51ad74be91bc44d2.js"></script><script defer src="/static/bundle/90310905274c4a3a7315.js"></script><script defer src="/static/bundle/a8104bae0658568443db.js"></script><script defer src="/static/bundle/52d5e69457963eb3cb2e.js"></script><script defer src="/static/bundle/28e3d6afe626a3e728ae.js"></script><script defer src="/static/bundle/8ef7b4de6e54c3db68df.js"></script><script defer src="/static/bundle/3d5678923530e0320711.js"></script><script defer src="/static/bundle/8c03c876676bcfc49caf.js"></script><link href="/static/bundle/b378288a29261e25294f.css" rel="stylesheet"><link href="/static/bundle/558cf47dd4aa8a2db0b6.css" rel="stylesheet"><link href="/static/bundle/84fa36e6c0200a05bcc0.css" rel="stylesheet"><link href="/static/bundle/72af0478d7fa1837c58e.css" rel="stylesheet"></head>
+
+<body>
+<head><script defer src="/static/bundle/31d6cfe0d16ae931b73c.js"></script></head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark prod" id="top-nav">
+    <button class="navbar-toggler d-sm-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <a class="navbar-brand" href="/">
+            <img src="/static/bundle/11b24ab2156955d8f3fa.ico" height="30"/>
+            <span data-i18n="top.nav.home"></span>
+        </a>
+        <ul class="navbar-nav top-nav-primary">
+            <li class="nav-item" id="nav-problem">
+                <a class="nav-link" href="/problem" data-i18n="top.nav.problem"></a>
+            </li>
+            <li class="nav-item" id="nav-status">
+                <a class="nav-link" href="/status" data-i18n="top.nav.status"></a>
+            </li>
+            <li class="nav-item" id="nav-contest">
+                <a class="nav-link" href="/contest" data-i18n="top.nav.contest"></a>
+            </li>
+            <li class="nav-item" id="nav-workbook">
+                <a class="nav-link" href="/workbook" data-i18n="top.nav.workbook"></a>
+            </li>
+            <li class="nav-item" id="nav-user">
+                <a class="nav-link" href="/user" data-i18n="top.nav.user"></a>
+            </li>
+            <li class="nav-item" id="nav-group">
+                <a class="nav-link" href="/group" data-i18n="top.nav.group"></a>
+            </li>
+            <li class="nav-item" id="nav-comment">
+                <a class="nav-link" href="/comment" data-i18n="top.nav.forum"></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="helpDropdown" data-bs-toggle="dropdown" data-i18n="top.nav.help"></a>
+                <div class="dropdown-menu dropdown-menu-start">
+                    <a class="dropdown-item" href="/article/2771">
+                        <i class="fa fa-question-circle-o"></i>
+                        <span data-i18n="top.nav.faq"></span>
+                    </a>
+                    <a class="dropdown-item" href="/article/97">
+                        <i class="fa fa-bug"></i>
+                        <span data-i18n="top.nav.bf"></span>
+                    </a>
+                    <a class="dropdown-item" href="/article/96">
+                        <i class="fa fa-lightbulb-o"></i>
+                        <span data-i18n="top.nav.suggestions"></span>
+                    </a>
+                    <a class="dropdown-item" href="javascript:void(0)" id="contact-us">
+                        <i class="fa fa-headphones"></i>
+                        <span data-i18n="top.nav.contact"></span>
+                    </a>
+                </div>
+            </li>
+            
+        </ul>
+        <ul class="navbar-nav top-nav-secondary ms-sm-auto">
+            <li class="nav-item top-nav-theme-item">
+                <a class="nav-link" href="javascript:void(0)" id="switchTheme"></a>
+            </li>
+            <li class="nav-item dropdown top-nav-locale-item">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="switchLocale" data-bs-toggle="dropdown" data-i18n="top.nav.locale"></a>
+                <div class="dropdown-menu dropdown-menu-end switch-locale-dropdown"></div>
+            </li>
+            
+                
+                
+                    <li class="nav-item top-nav-login-item">
+                        <a class="nav-link login" href="javascript:void(0)" data-i18n="top.nav.login"></a>
+                    </li>
+                    <li class="nav-item top-nav-register-item">
+                        <a class="nav-link register" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#registerModal" data-i18n="top.nav.register"></a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+</nav>
+<div id="page-panel-toggle-slot"></div>
+
+
+<div class="page-panel-toggle-host d-none">
+    <button type="button"
+            class="btn btn-outline-light page-panel-toggle problem-panels-toggle d-none"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#prob-left-panel"
+            aria-controls="prob-left-panel">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+</div>
+
+<div class="container-md">
+    <div class="row fixed-left-panel-layout">
+        <div class="offcanvas-md offcanvas-start problem-side-panel-column fixed-left-panel"
+             id="prob-left-panel"
+             tabindex="-1"
+             aria-labelledby="problem-panels-title">
+            <div class="offcanvas-header d-md-none">
+                <h5 class="offcanvas-title" id="problem-panels-title" data-i18n="button.panels"></h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="offcanvas"
+                        data-bs-target="#prob-left-panel"
+                        aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body problem-side-panel-body">
+            <div class="alert alert-danger row" role="alert" id="prob-alert" style="display: none"></div>
+
+            <div id="prob-operation" class="problem-side-panel-section">
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" class="btn" id="btn-submit" data-bs-toggle="tooltip"></button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-secondary" id="btn-solutions">
+                            <span class="solution-count"></span>
+                            <span data-i18n="problem.view.solutions"></span>
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-secondary" id="btn-leader-board">
+                            <i class='fa fa-list-ol'></i>
+                            <span data-i18n="problem.view.leaderboard"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <a href="javascript:void(0)" data-bs-toggle="tooltip" class="recrawl btn btn-secondary">
+                            <i class='fa fa-refresh'></i>
+                            <span data-i18n="problem.view.recrawl"></span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="javascript:void(0)" class="gpt_translate btn btn-secondary" data-i18n-title="problem.view.translation_tip">
+                            <img src="/static/bundle/21463976b30d84e25348.svg" style="fill: blue; height: 14px; margin-bottom: 3px;"/>
+                            <span data-i18n="problem.view.translation"></span>
+                        </a>
+                    </div>
+                </div>
+
+                
+
+                
+            </div>
+
+            <div id="prob-properties" class="problem-side-panel-section">
+                <dl class="card row"></dl>
+            </div>
+
+            <div id="prob-statistics" class="problem-side-panel-section">
+                <dl class="card row"></dl>
+            </div>
+
+            
+
+            <div id="prob-descriptions" class="problem-side-panel-section">
+                
+                <ul class="list-group" id="prob-descs">
+                    
+                </ul>
+            </div>
+
+            <div class="row d-none d-md-block" style="margin-top: 20px;">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9098591903020457"
+                     data-ad-slot="9316078395"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+            </div>
+
+        </div>
+
+        <div class="fixed-main-panel" id="prob-right-panel">
+            <div class="row">
+                <div id="prob-title">
+                    <h2><i id="btn-fav"></i> Watermelon</h2>
+                    <span class="origin">
+                        <a href="/problem/CodeForces-4A/origin"
+                           target="_blank">
+                            CodeForces - 4A
+                            <i class='fa fa-external-link'></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="row">
+                
+
+                
+            </div>
+
+            <div id="problem_discuss" class="row"></div>
+        </div>
+
+    </div>
+</div>
+
+<textarea style="display: none" name="dataJson">{"prob":"4A","languages":{"88":"Kotlin 1.9.21","89":"GNU G++20 13.2 (64 bit, winlibs)","67":"Ruby 3.2.2","28":"D DMD32 v2.105.0","91":"GNU G++23 14.2 (64 bit, msys2)","70":"PyPy 3.10 (7.3.15, 64bit)","51":"PascalABC.NET 3.8.3","96":"C# 13, .NET SDK 9","97":"F# 9, .NET SDK 9","31":"Python 3.13.2","75":"Rust 1.89.0 (2021)","54":"GNU G++17 7.3.0","32":"Go 1.22.2","98":"Rust 1.89.0 (2024)","99":"Kotlin 2.2.0","55":"Node.js 15.8.0 (64bit)","12":"Haskell GHC 8.10.1","34":"JavaScript V8 4.8.0","79":"C# 10, .NET SDK 6.0","13":"Perl 5.20.1","36":"Java 8 32bit","19":"OCaml 4.02.1","3":"Delphi 7","4":"Free Pascal 3.2.2","6":"PHP 8.1.7","7":"Python 2.7.18","9":"C# Mono 6.8","83":"Kotlin 1.7.20","40":"PyPy 2.7.13 (7.3.0)","41":"PyPy 3.6.9 (7.3.0)","20":"Scala 2.12.8","43":"GNU GCC C11 5.1.0","65":"C# 8, .NET Core 3.1","87":"Java 21 64bit"},"accepted":false,"isFav":false,"solutionCount":1,"disabled":false,"oj":"CodeForces","attempted":false,"problemId":19984,"properties":[{"title":"time_limit","content":"1000 ms","spoiler":false},{"title":"mem_limit","content":"65536 kB","spoiler":false},{"title":"input_file","content":"\u003cspan style\u003d\u0027color:var(--color-danger)\u0027\u003e stdin\u003c/span\u003e","spoiler":false},{"title":"output_file","content":"\u003cspan style\u003d\u0027color:var(--color-danger)\u0027\u003e stdout\u003c/span\u003e","spoiler":false},{"title":"source","content":"\u003ca href\u003d\"https://codeforces.com/contest/4\"\u003eCodeforces Beta Round 4 (Div. 2 Only)\u003c/a\u003e","spoiler":true},{"title":"tags","content":"\n    brute force\n\n\n    math\n\n\n    \n","spoiler":true},{"title":"difficulty","content":"800","spoiler":true}],"submitMethods":[false,true,true],"status":0,"statistics":[["users","\u003cspan title\u003d\u0027Local\u0027\u003e68612 / 77201\u003c/span\u003e"],["","\u003cspan title\u003d\u0027Remote\u0027\u003e677001 / ?\u003c/span\u003e"]]}</textarea>
+<head><script defer src="/static/bundle/31d6cfe0d16ae931b73c.js"></script></head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="body-footer">
+    <div style="margin-bottom: 8px">
+        <a href="/cdn-cgi/l/email-protection#bdd4ce93c8d3fdcccc93ded2d0" target="_blank">
+            <img src="/static/bundle/a7b7e5c7e94c918596f2.svg"/>
+        </a>
+        <img src="/static/bundle/fdbb90aaddd32a5ab4ad.png" class="qq" data-bs-toggle="popover" data-bs-placement="top"/>
+        <a href="https://weibo.com/u/5340553087" target="_blank">
+            <img src="/static/bundle/aae271671b3d18e15b40.svg"/>
+        </a>
+        <a href="https://space.bilibili.com/3056509/lists/3909505" target="_blank">
+            <img src="/static/bundle/ad1d62977bf56d0e0010.png"/>
+        </a>
+        <a href="https://t.me/joinchat/Erw7nRGwXN3iSCoKguVW3w" target="_blank">
+            <img src="/static/bundle/7182da66feaf3e99632a.svg"/>
+        </a>
+        <a href="https://www.facebook.com/virtualjudge/" target="_blank">
+            <img src="/static/bundle/c2687d1cf1f3e06984eb.svg"/>
+        </a>
+    </div>
+    <div id="footer-info">
+        All Copyright Reserved © 2010-2026<br/>
+        <span data-i18n="bottom.server_time"></span>: <span class="currentTimeTZ"></span>
+    </div>
+</div>
+
+
+<input name="systemVersion" type="hidden" value="1776656745810"/>
+<input name="gaId" type="hidden" value="G-374JLX1715"/>
+
+
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript">basePath = "";</script>
+
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ea375936d3048e6',t:'MTc3NTg0MjAxNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

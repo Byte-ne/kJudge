@@ -23,18 +23,43 @@
             font-weight: bold;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        #nav .logo-area {
+            display: flex;
+            align-items: center;
         }
         #nav a {
             color: white;
             text-decoration: none;
             margin-right: 15px;
+            font-weight: normal;
+            font-size: 12px;
         }
         #nav a:hover {
             text-decoration: underline;
         }
+        #search-box {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 2px 5px;
+            font-size: 11px;
+            width: 150px;
+            border-radius: 2px;
+        }
+        #hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 20px;
+            margin-right: 10px;
+            user-select: none;
+        }
         #container {
             background-color: #f6f6ef;
-            max-width: 900px;
+            max-width: 940px;
             margin: 0 auto;
             border-left: 1px solid #ddd;
             border-right: 1px solid #ddd;
@@ -46,85 +71,171 @@
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             color: #000;
         }
-        .content h1 { font-size: 20px; border-bottom: 2px solid #3b5998; padding-bottom: 5px; }
-        .content h2 { font-size: 16px; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 3px; }
-        .content h3 { font-size: 14px; margin-top: 20px; }
+        .content h1 { font-size: 22px; border-bottom: 2px solid #ff6600; padding-bottom: 5px; margin-top: 0; }
+        .content h2 { font-size: 18px; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 3px; }
+        .content h3 { font-size: 15px; margin-top: 20px; }
         .content a { color: #0000ee; text-decoration: none; }
         .content a:hover { text-decoration: underline; }
         .content pre, .content code {
             font-family: Consolas, 'Courier New', monospace;
-            background-color: #eaeaea;
+            background-color: #f0f0f0;
             padding: 2px 4px;
             font-size: 12px;
-            border-radius: 3px;
+            border-radius: 2px;
         }
         .content pre {
-            padding: 10px;
+            padding: 12px;
             display: block;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             overflow-x: auto;
+            background-color: #fdfdfd;
         }
         .content pre code {
             background-color: transparent;
             padding: 0;
             border-radius: 0;
         }
-        .content table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 15px 0;
-            font-size: 12px;
-        }
-        .content th, .content td {
-            border: 1px solid #ccc;
-            padding: 6px 10px;
-            text-align: left;
-        }
-        .content th { background-color: #e5e5e5; }
         .footer {
-            margin-top: 40px;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
+            margin-top: 60px;
+            border-top: 2px solid #ff6600;
+            padding: 15px 0;
             font-size: 11px;
             color: #828282;
             text-align: center;
         }
-        .loading {
-            color: #888;
-            font-style: italic;
+        
+        /* Mobile Side Panel */
+        #side-panel {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            width: 260px;
+            height: 100%;
+            background: #f6f6ef;
+            border-right: 1px solid #ddd;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        #side-panel.open {
+            left: 0;
+        }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1500;
+        }
+        #side-panel h3 { font-size: 14px; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        #side-panel ul { list-style: none; padding: 0; margin: 0 0 20px 0; }
+        #side-panel li { margin-bottom: 5px; }
+        #side-panel a { color: #000; text-decoration: none; font-size: 12px; display: block; padding: 3px 0; }
+        #side-panel a:hover { color: #ff6600; }
+        
+        @media (max-width: 768px) {
+            #hamburger { display: block; }
+            .desktop-nav { display: none; }
+            #container { padding: 15px 20px; border: none; }
+            #search-box { width: 100px; }
+            #nav { padding: 10px; }
         }
     </style>
 </head>
 <body>
 
+<div id="side-panel">
+    <h3>Documentation</h3>
+    <ul id="nav-list">
+        <li><a href="#home">Main Page</a></li>
+        <li><strong>Tutorials</strong></li>
+        <li><a href="#docs/tutorials/getting-started">Getting Started</a></li>
+        <li><strong>How-to Guides</strong></li>
+        <li><a href="#docs/how-to/handle-contests">Handle Contests</a></li>
+        <li><a href="#docs/how-to/manual-test-management">Manual Tests</a></li>
+        <li><strong>Reference</strong></li>
+        <li><a href="#docs/reference/cli">CLI Commands</a></li>
+        <li><a href="#docs/reference/config-schema">Config Schema</a></li>
+        <li><strong>Explanation</strong></li>
+        <li><a href="#docs/explanation/architecture">Architecture</a></li>
+    </ul>
+    <div style="font-size: 11px; color: #888; margin-top: 40px;">
+        kJudge v1.2.0
+    </div>
+</div>
+<div id="overlay"></div>
+
 <div id="container">
     <div id="nav">
-        <!-- Logo Text -->
-        <span style="display: flex; align-items: center; margin-right: 20px;">
-            <img src="true_logo.png" width="28" height="28" style="margin-right: 10px;" alt="kjudge logo">
-            <span style="font-size: 16px;">kjudge</span>
-        </span>
-        <span style="font-weight: normal; font-size: 12px;">
-            <a href="#home">Home</a> | 
-            <a href="#docs/architecture">Architecture</a> | 
-            <a href="#docs/advanced_workflows">Workflows</a> | 
-            <a href="#docs/config_mechanics">Config</a> |
-            <a href="#docs/distribution">Distribution</a>
-        </span>
+        <div class="logo-area">
+            <div id="hamburger">&#9776;</div>
+            <img src="true_logo.png" width="24" height="24" style="margin-right: 8px;" alt="logo">
+            <a href="#home" style="font-size: 16px; font-weight: bold; margin-right: 20px;">kjudge</a>
+            
+            <span class="desktop-nav">
+                <a href="#docs/tutorials/getting-started">Tutorials</a>
+                <a href="#docs/how-to/handle-contests">Guides</a>
+                <a href="#docs/reference/cli">Reference</a>
+                <a href="#docs/explanation/architecture">Architecture</a>
+            </span>
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <input type="text" id="search-box" placeholder="Search docs..." onkeyup="searchNav()">
+        </div>
     </div>
 
-    <!-- Markdown will be injected here -->
     <div class="content" id="content">
         <p class="loading">Loading documentation...</p>
     </div>
 
     <div class="footer">
-        kjudge &mdash; CLI Local Judge Application. Designed for minimalists and peak efficiency.
+        kjudge &mdash; Local Judge CLI. peak efficiency, zero friction.
     </div>
 </div>
 
 <script>
-    // Simple SPA Router to fetch and render .md files without GitHub Pages/Jekyll
+    // Search function
+    function searchNav() {
+        let input = document.getElementById('search-box').value.toLowerCase();
+        let listItems = document.querySelectorAll('#nav-list li');
+        
+        listItems.forEach(item => {
+            let text = item.textContent.toLowerCase();
+            if (text.includes(input)) {
+                item.style.display = "";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+
+    // Toggle Mobile Menu
+    const hamburger = document.getElementById('hamburger');
+    const sidePanel = document.getElementById('side-panel');
+    const overlay = document.getElementById('overlay');
+
+    function toggleMenu() {
+        sidePanel.classList.toggle('open');
+        overlay.style.display = sidePanel.classList.contains('open') ? 'block' : 'none';
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking a link
+    sidePanel.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (sidePanel.classList.contains('open')) toggleMenu();
+        });
+    });
+
+    // Simple SPA Router
     async function loadContent() {
         let page = window.location.hash.substring(1);
         if (!page) page = 'home';
@@ -136,15 +247,14 @@
             if (!res.ok) throw new Error("Not found");
             const md = await res.text();
             document.getElementById('content').innerHTML = marked.parse(md);
+            // Scroll to top
+            window.scrollTo(0, 0);
         } catch (e) {
             document.getElementById('content').innerHTML = `<h1>404 Not Found</h1><p>Could not load <code>${path}</code>.</p>`;
         }
     }
 
-    // Listen for hash changes (when user clicks nav links)
     window.addEventListener('hashchange', loadContent);
-    
-    // Load initial content
     loadContent();
 </script>
 

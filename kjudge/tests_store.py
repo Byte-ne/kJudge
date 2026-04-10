@@ -13,7 +13,7 @@ from rich.table import Table
 
 from kjudge.utils import (
     TESTS_DIR, find_kjudge_dir, console, print_success, print_info,
-    print_error, print_warning,
+    print_error, print_warning, SUCCESS_ICON, FAIL_ICON, DASH_ICON
 )
 
 
@@ -268,10 +268,10 @@ def handle_list(args):
     table.add_column("Out Size", justify="right", style="dim")
 
     for i, t in enumerate(tests, 1):
-        in_mark = "[green]✓[/]" if t["has_in"] else "[red]✗[/]"
-        out_mark = "[green]✓[/]" if t["has_out"] else "[yellow]—[/]"
-        in_size = _format_size(t["in_size"]) if t["has_in"] else "—"
-        out_size = _format_size(t["out_size"]) if t["has_out"] else "—"
+        in_mark = f"[green]{SUCCESS_ICON}[/]" if t["has_in"] else f"[red]{FAIL_ICON}[/]"
+        out_mark = f"[green]{SUCCESS_ICON}[/]" if t["has_out"] else f"[yellow]{DASH_ICON}[/]"
+        in_size = _format_size(t["in_size"]) if t["has_in"] else DASH_ICON
+        out_size = _format_size(t["out_size"]) if t["has_out"] else DASH_ICON
         table.add_row(str(i), t["name"], in_mark, out_mark, in_size, out_size)
 
     console.print()

@@ -120,6 +120,26 @@ def print_summary(passed: int, total: int):
     )
 
 
+def _safe_icon(unicode_icon: str, fallback: str) -> str:
+    """Return the unicode icon if supported by the console encoding, otherwise fallback."""
+    try:
+        # Some environments (like VS Code terminal) support Unicode but sys.stdout.encoding 
+        # might be misleading. However, for standalone .exe on raw CMD, this is critical.
+        unicode_icon.encode(sys.stdout.encoding or 'ascii')
+        return unicode_icon
+    except (UnicodeEncodeError, AttributeError):
+        return fallback
+
+
+# Pre-defined icons for consistency
+SUCCESS_ICON = _safe_icon("✓", "[OK]")
+INFO_ICON = _safe_icon("ℹ", "[i]")
+WARNING_ICON = _safe_icon("⚠", "[!]")
+ERROR_ICON = _safe_icon("❌", "[X]")
+FAIL_ICON = _safe_icon("✗", "[X]")
+DASH_ICON = _safe_icon("—", "-")
+
+
 def print_error(msg: str):
     """Print an error message to stderr."""
     error_console.print(f"[bold red]Error:[/] {msg}")
@@ -127,14 +147,14 @@ def print_error(msg: str):
 
 def print_success(msg: str):
     """Print a success message."""
-    console.print(f"[bold green]✓[/] {msg}")
+    console.print(f"[bold green]{SUCCESS_ICON}[/] {msg}")
 
 
 def print_info(msg: str):
     """Print an info message."""
-    console.print(f"[bold blue]ℹ[/] {msg}")
+    console.print(f"[bold blue]{INFO_ICON}[/] {msg}")
 
 
 def print_warning(msg: str):
     """Print a warning message."""
-    console.print(f"[bold yellow]⚠[/] {msg}")
+    console.print(f"[bold yellow]{WARNING_ICON}[/] {msg}")
