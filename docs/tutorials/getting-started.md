@@ -54,5 +54,5 @@ kJudge will compile your code, run it against all samples in `.kjudge/tests/`, a
 ---
 
 **Next Steps:**
-- Learn how to [Fetch Codeforces Samples](docs/how-to/handle-contests.md) automatically.
-- Explore the [CLI Reference](docs/reference/cli.md) for advanced flags.
+- Learn how to [Fetch Codeforces Samples](../how-to/handle-contests.md) automatically.
+- Explore the [CLI Reference](../reference/cli.md) for advanced flags.
