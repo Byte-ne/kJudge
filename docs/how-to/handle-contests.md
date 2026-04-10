@@ -25,7 +25,7 @@ kJudge attempts to scrape sample test cases directly from Codeforces.
 kjudge fetch cf:1234A
 ```
 
-> [!NOTE]
+**NOTE**:
 > Codeforces uses aggressive bot protection (Cloudflare). If `fetch` fails, kJudge will attempt a fallback via VJudge. If both fail, you will be prompted to add samples manually.
 
 ## 3. Automated Setup Wizard
