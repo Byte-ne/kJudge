@@ -1,4 +1,4 @@
-# kJudge ($kilo Judge$)
+# kJudge
 ## A Local CP Judge
 <img src="/true_logo.png" align = "center" width="200" height="200"> 
 

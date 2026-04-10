@@ -9,11 +9,13 @@ import os
 import sys
 import argparse
 
-from kjudge.utils import console, print_success, print_error, print_info
+from kjudge.utils import (
+    console, print_success, print_error, print_info, ensure_kjudge_dir,
+    SUCCESS_ICON, WARNING_ICON
+)
 from kjudge.cf_fetcher import parse_cf_identifier, fetch_samples, fetch_contest_problems
 from kjudge.config import get_defaults, save_config
 from kjudge.tests_store import save_test
-from kjudge.utils import ensure_kjudge_dir
 
 
 def handle_contest(args):
@@ -78,11 +80,11 @@ def handle_contest(args):
             for i, (inp, out) in enumerate(pairs, 1):
                 name = f"sample_{i:03d}"
                 save_test(problem_dir, name, inp, out)
-            console.print(f"[green]✓[/] {len(pairs)} sample(s)")
+            console.print(f"[green]{SUCCESS_ICON}[/] {len(pairs)} sample(s)")
         except SystemExit:
-            console.print("[yellow]⚠ failed to fetch samples[/]")
+            console.print(f"[yellow]{WARNING_ICON} failed to fetch samples[/]")
         except Exception as e:
-            console.print(f"[yellow]⚠ {e}[/]")
+            console.print(f"[yellow]{WARNING_ICON} {e}[/]")
 
     console.print()
     print_success(
