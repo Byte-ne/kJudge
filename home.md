@@ -15,7 +15,7 @@
 2.  **Fetch**: `kjudge fetch cf:4A`
 3.  **Run**: `kjudge run main.cpp`
 
-## Documentation Map (Diátaxis)
+## Documentation Map
 
 Explore our comprehensive documentation organized by intent:
 

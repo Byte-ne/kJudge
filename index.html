@@ -138,12 +138,46 @@
         #side-panel a { color: #000; text-decoration: none; font-size: 12px; display: block; padding: 3px 0; }
         #side-panel a:hover { color: #ff6600; }
         
+        #search-wrapper {
+            position: relative;
+        }
+        #search-results {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-top: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 3000;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        #search-results a {
+            display: block;
+            padding: 8px 12px;
+            color: #222;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 11px;
+        }
+        #search-results a:last-child {
+            border-bottom: none;
+        }
+        #search-results a:hover {
+            background-color: #f6f6ef;
+            color: #ff6600;
+        }
+        
         @media (max-width: 768px) {
             #hamburger { display: block; }
             .desktop-nav { display: none; }
             #container { padding: 15px 20px; border: none; }
-            #search-box { width: 100px; }
+            #search-box { width: 120px; }
             #nav { padding: 10px; }
+            #search-results { width: 100%; left: 0; right: 0; }
         }
     </style>
 </head>
@@ -185,8 +219,9 @@
             </span>
         </div>
         
-        <div style="display: flex; align-items: center;">
-            <input type="text" id="search-box" placeholder="Search docs..." onkeyup="searchNav()">
+        <div id="search-wrapper">
+            <input type="text" id="search-box" placeholder="Search docs..." autocomplete="off">
+            <div id="search-results"></div>
         </div>
     </div>
 
@@ -200,6 +235,17 @@
 </div>
 
 <script>
+    // Search Data
+    const DOCS_INDEX = [
+        { title: 'Home', path: 'home', meta: 'main landing' },
+        { title: 'Getting Started', path: 'docs/tutorials/getting-started', meta: 'tutorial install setup' },
+        { title: 'Handle Contests', path: 'docs/how-to/handle-contests', meta: 'guide codeforces cf fetch' },
+        { title: 'Manual Test Management', path: 'docs/how-to/manual-test-management', meta: 'guide add manual tests' },
+        { title: 'CLI Reference', path: 'docs/reference/cli', meta: 'commands flags options api' },
+        { title: 'Config Schema', path: 'docs/reference/config-schema', meta: 'settings json template' },
+        { title: 'Architecture', path: 'docs/explanation/architecture', meta: 'isolation verdict design logic' },
+    ];
+
     // Configure marked to handle internal links correctly
     const renderer = new marked.Renderer();
     const originalLink = renderer.link.bind(renderer);
@@ -210,10 +256,8 @@
             let currentPage = window.location.hash.substring(1) || 'home';
             let currentDir = currentPage.split('/').slice(0, -1).join('/');
             
-            // Handle relative paths (e.g., ../reference/cli.md)
             let newHref = href;
             if (!href.startsWith('/')) {
-                // If it's relative, join it with the current directory
                 let parts = [...currentDir.split('/'), ...href.split('/')].filter(p => p && p !== '.');
                 let resolvedParts = [];
                 for (let part of parts) {
@@ -222,10 +266,9 @@
                 }
                 newHref = resolvedParts.join('/');
             } else {
-                newHref = href.substring(1); // Strip leading slash
+                newHref = href.substring(1); 
             }
 
-            // Strip .md extension if present
             if (newHref.endsWith('.md')) {
                 newHref = newHref.slice(0, -3);
             }
@@ -238,19 +281,43 @@
     marked.use({ renderer });
 
     // Search function
-    function searchNav() {
-        let input = document.getElementById('search-box').value.toLowerCase();
-        let listItems = document.querySelectorAll('#nav-list li');
-        
-        listItems.forEach(item => {
-            let text = item.textContent.toLowerCase();
-            if (text.includes(input)) {
-                item.style.display = "";
-            } else {
-                item.style.display = "none";
-            }
-        });
+    const searchBox = document.getElementById('search-box');
+    const searchResults = document.getElementById('search-results');
+
+    searchBox.addEventListener('keyup', (e) => {
+        const query = searchBox.value.toLowerCase().trim();
+        if (!query) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        const matches = DOCS_INDEX.filter(doc => 
+            doc.title.toLowerCase().includes(query) || 
+            doc.meta.toLowerCase().includes(query)
+        );
+
+        if (matches.length > 0) {
+            searchResults.innerHTML = matches.map(match => 
+                `<a href="#${match.path}" onclick="closeSearch()">${match.title}<br><span style="font-size:9px;color:#888">${match.path}</span></a>`
+            ).join('');
+            searchResults.style.display = 'block';
+        } else {
+            searchResults.innerHTML = '<div style="padding:10px;font-size:11px;color:#888">No results found</div>';
+            searchResults.style.display = 'block';
+        }
+    });
+
+    function closeSearch() {
+        searchBox.value = '';
+        searchResults.style.display = 'none';
     }
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+        if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.style.display = 'none';
+        }
+    });
 
     // Toggle Mobile Menu
     const hamburger = document.getElementById('hamburger');
@@ -276,8 +343,6 @@
     async function loadContent() {
         let page = window.location.hash.substring(1);
         if (!page) page = 'home';
-        
-        // Remove .md if user manually typed it in the URL
         if (page.endsWith('.md')) page = page.slice(0, -3);
         
         let path = page + '.md';
@@ -287,7 +352,6 @@
             if (!res.ok) throw new Error("Not found");
             const md = await res.text();
             document.getElementById('content').innerHTML = marked.parse(md);
-            // Scroll to top
             window.scrollTo(0, 0);
         } catch (e) {
             console.error(e);
